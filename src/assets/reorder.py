@@ -7,7 +7,6 @@ logging, type hints, and production-ready features.
 
 import csv
 import logging
-import os
 import sys
 from datetime import datetime
 from pathlib import Path
