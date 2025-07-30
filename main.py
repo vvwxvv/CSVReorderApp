@@ -18,6 +18,17 @@ from src.assets.reorder import CSVReorder, create_reorder_config
 from src.uiitems.close_button import CloseButton
 
 
+def get_resource_path(relative_path):
+    """Get absolute path to resource, works for dev and for PyInstaller"""
+    try:
+        # PyInstaller creates a temp folder and stores path in _MEIPASS
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
+
+    return os.path.join(base_path, relative_path)
+
+
 class MainWorkflowApp(QWidget):
     def __init__(self):
         super().__init__()
@@ -242,7 +253,8 @@ class MainWorkflowApp(QWidget):
     def create_logo_label(self):
         """创建 Logo 标签。"""
         logo = QLabel(self)
-        pixmap = QPixmap(os.path.join("static", "cover.png")).scaled(500, 800)
+        cover_path = get_resource_path(os.path.join("static", "cover.png"))
+        pixmap = QPixmap(cover_path).scaled(500, 800)
         logo.setPixmap(pixmap)
         logo.setAlignment(Qt.AlignCenter)
         logo.setObjectName("Logo")
